@@ -22,13 +22,9 @@ int main()
 	morphologyEx(binaryMat, dstImage_Open,2, kernel);
 	morphologyEx(binaryMat, dstImage_Close,3, kernel);
 	imshow("binaryMat", binaryMat);
-	waitKey(0);
 	imshow("Image_Erode", dstImage_Erode);
-	waitKey(0);
 	imshow("Image_Dilate", dstImage_Dilate);
-	waitKey(0);
 	imshow("Image_Open", dstImage_Open);
-	waitKey(0);
 	imshow("Image_Close", dstImage_Close);
 	waitKey(0);
 	return 0;
