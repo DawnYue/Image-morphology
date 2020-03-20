@@ -19,8 +19,8 @@ int main()
 	Mat kernel= getStructuringElement(MORPH_RECT, Size(3, 3));
 	erode(binaryMat, dstImage_Erode, kernel);
 	dilate(binaryMat, dstImage_Dilate, kernel);
-	morphologyEx(binaryMat, dstImage_Open,2, kernel);
-	morphologyEx(binaryMat, dstImage_Close,3, kernel);
+	morphologyEx(binaryMat, dstImage_Open,MORPH_OPEN, kernel);
+	morphologyEx(binaryMat, dstImage_Close, MORPH_CLOSE, kernel);
 	imshow("binaryMat", binaryMat);
 	imshow("Image_Erode", dstImage_Erode);
 	imshow("Image_Dilate", dstImage_Dilate);
