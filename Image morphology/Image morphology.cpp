@@ -44,13 +44,7 @@ int main()
 	resultMat = cv::Mat::zeros(srcMat.size(), CV_8UC3);	//显示用图像
 	std::vector<cv::Vec3b> colors(nComp);
 	colors[0] = cv::Vec3b(0, 0, 0);//背景黑色
-	//随机产生颜色
-	for (int n = 1; n < nComp; n++)
-	{
-		colors[n] = cv::Vec3b(rand() / 255, rand() / 255, rand() / 255);
-	}
-
-
+	
 	//绘制bounding box
 	for (int i = 1; i < nComp; i++)
 	{
