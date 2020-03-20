@@ -27,16 +27,13 @@ int main()
 	int channels = srcMat.channels();
 	int rows = srcMat.rows; //高---行
 	int col = srcMat.cols;//宽---列
-	cout << channels << " " << rows << endl;
 	int cols = srcMat.cols * channels;
-	cout << cols << endl;
 	if (srcMat.isContinuous()) {
 		cols *= rows;
 		rows = 1;
 	}
 
 	// 每个像素点的每个通道255取反（0-255（黑-白））
-
 	uchar* p1;
 	uchar* p2;
 	for (int row = 0; row < rows; row++) {
@@ -48,7 +45,6 @@ int main()
 			p1++;
 		}
 	}
-
 
 
 	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);
