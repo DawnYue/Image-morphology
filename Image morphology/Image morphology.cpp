@@ -11,13 +11,13 @@ int main()
 {   
 	Mat  dstImage_Erode, dstImage_Dilate, dstImage_Open, dstImage_Close;
 	cv::Mat binaryMat;
-	cv::Mat srcMat = imread("E:\\IMG.jpg", 0);
+	cv::Mat srcMat = imread("E:\\IMG.jpg", -1);
 	cv::Mat labelMat;
 	cv::Mat statsMat;
 	cv::Mat centrMat;
 	cv::Mat resultMat;
 	//二值化
-
+	/*
 
 	// 对图像进行所有像素用 （255- 像素值）
 	Mat invertImage;
@@ -52,7 +52,8 @@ int main()
 
 
 
-	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);
+	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);*/
+	cv::threshold(srcMat, binaryMat, 0, 255, THRESH_OTSU);
 	Mat kernel= getStructuringElement(MORPH_RECT, Size(11, 11));
 	morphologyEx(binaryMat, dstImage_Open, 2, kernel,Point(-1,-1),1);//开运算
 
