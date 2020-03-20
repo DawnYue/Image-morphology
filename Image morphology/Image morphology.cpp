@@ -437,7 +437,6 @@ int main()
 		//连通域编号
 		cv::putText(resultMat, num, Point(bndbox.x, bndbox.y), font_face, 1, cv::Scalar(0, 255, 255), thickness, 8, 0);
 	}
-
 	//将连通域数量绘制在图片上
 	//设置绘制文本的相关参数
 	char text[20];
