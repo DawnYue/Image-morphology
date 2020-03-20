@@ -50,7 +50,7 @@ int main()
 	}
 
 
-//	bitwise_not(srcMat, srcMat);//注意前景为白色
+
 	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);
 	Mat kernel= getStructuringElement(MORPH_RECT, Size(11, 11));
 	morphologyEx(binaryMat, dstImage_Open, 2, kernel,Point(-1,-1),1);//开运算
