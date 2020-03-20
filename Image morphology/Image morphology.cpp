@@ -31,6 +31,5 @@ int main()
 	waitKey(0);
 	imshow("Image_Close", dstImage_Close);
 	waitKey(0);
-
 	return 0;
 }
