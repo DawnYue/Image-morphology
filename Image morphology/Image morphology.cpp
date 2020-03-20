@@ -11,22 +11,18 @@ int main()
 {   
 	Mat  dstImage_Erode, dstImage_Dilate, dstImage_Open, dstImage_Close;
 	cv::Mat binaryMat;
-	cv::Mat srcMat = imread("E:\\coin.png", 0);
+	cv::Mat srcMat = imread("E:\\IMG.jpg", 0);
 	cv::Mat labelMat;
 	cv::Mat statsMat;
 	cv::Mat centrMat;
 	cv::Mat resultMat;
 	//二值化
+	bitwise_not(srcMat, srcMat);//注意前景为白色
 	cv::threshold(srcMat, binaryMat, 0, 255, THRESH_OTSU);
-	/*
-	Mat kernel= getStructuringElement(MORPH_RECT, Size(3, 3));
-	erode(binaryMat, dstImage_Erode, kernel);
-	dilate(binaryMat, dstImage_Dilate, kernel);
-	morphologyEx(binaryMat, dstImage_Open,2, kernel);
-	morphologyEx(binaryMat, dstImage_Close,3, kernel);
-	*/
+	Mat kernel= getStructuringElement(MORPH_RECT, Size(11, 11));
+	morphologyEx(binaryMat, dstImage_Open, 2, kernel,Point(-1,-1),1);//开运算
 
-	int nComp = cv::connectedComponentsWithStats(binaryMat,
+	int nComp = cv::connectedComponentsWithStats(dstImage_Open,
 		labelMat,
 		statsMat,
 		centrMat,
@@ -54,16 +50,6 @@ int main()
 		colors[n] = cv::Vec3b(rand() / 255, rand() / 255, rand() / 255);
 	}
 
-	//按照连通域编号着色
-	for (int y = 0; y < srcMat.rows; y++)
-	{
-		for (int x = 0; x < srcMat.cols; x++)
-		{
-			int label = labelMat.at<int>(y, x);
-			CV_Assert(0 <= label && label <= nComp);
-			resultMat.at<cv::Vec3b>(y, x) = colors[label];
-		}
-	}
 
 	//绘制bounding box
 	for (int i = 1; i < nComp; i++)
@@ -72,7 +58,7 @@ int main()
 		//左上角坐标
 		bndbox.x = statsMat.at<int>(i, 0);
 		bndbox.y = statsMat.at<int>(i, 1);
-		/宽和长 
+		//宽和长 
 		bndbox.width = statsMat.at<int>(i, 2);
 		bndbox.height = statsMat.at<int>(i, 3);
 		//绘制
@@ -87,15 +73,6 @@ int main()
 	moveWindow("binaryMat", srcMat.cols, 20);
 	moveWindow("results", srcMat.cols * 2, 20);
 	waitKey(0);
-	/*
-	imshow("Image_Erode", dstImage_Erode);
-	waitKey(0);
-	imshow("Image_Dilate", dstImage_Dilate);
-	waitKey(0);
-	imshow("Image_Open", dstImage_Open);
-	waitKey(0);
-	imshow("Image_Close", dstImage_Close);
-	waitKey(0);
-	*/
+	
 	return 0;
 }
