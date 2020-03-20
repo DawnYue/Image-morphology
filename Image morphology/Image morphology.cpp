@@ -352,6 +352,7 @@ int main()
 	cv::Mat resultMat;
 	cv::Mat srcMat = imread("E:\\coin.png", 0);
 	cv::Mat srcMat2 = imread("E:\\IMG.jpg", 0);
+	cv::Mat srcMat3 = imread("E:\\clip.png", 0);
 	element = cvCreateStructuringElementEx(1 * 2 + 1, 1 * 2 + 1, 1, 1, element_shape, 0);
 	int font_face = cv::FONT_HERSHEY_COMPLEX;
 	double font_scale = 1.5;
