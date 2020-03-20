@@ -377,6 +377,10 @@ int main()
 	//CvMat *imageD1 = cvCreateMat(512, 512, CV_8UC3);
 	//cvDilate(binaryMat, imageD1, element, 1);//膨胀图像
 	//获得连通域
+	//open
+	Mat elementSizel = getStructuringElement(MORPH_ELLIPSE,Size(9,11));
+	morphologyEx(srcMat, binaryMat, MORPH_OPEN, elementSizel);
+
 	int nComp = cv::connectedComponentsWithStats(binaryMat,
 		labelMat,
 		statsMat,
