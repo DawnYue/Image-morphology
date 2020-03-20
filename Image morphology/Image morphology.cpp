@@ -8,16 +8,16 @@
 using namespace cv;
 using namespace std;
 int main()
-{   
+{
 	Mat  dstImage_Erode, dstImage_Dilate, dstImage_Open, dstImage_Close;
 	cv::Mat binaryMat;
-	cv::Mat srcMat = imread("E:\\IMG.jpg", -1);
+	cv::Mat srcMat = imread("E:\\IMG.jpg", 0);
 	cv::Mat labelMat;
 	cv::Mat statsMat;
 	cv::Mat centrMat;
 	cv::Mat resultMat;
 	//二值化
-	/*
+
 
 	// 对图像进行所有像素用 （255- 像素值）
 	Mat invertImage;
@@ -51,11 +51,9 @@ int main()
 
 
 
-
-	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);*/
-	cv::threshold(srcMat, binaryMat, 0, 255, THRESH_OTSU);
-	Mat kernel= getStructuringElement(MORPH_RECT, Size(11, 11));
-	morphologyEx(binaryMat, dstImage_Open, 2, kernel,Point(-1,-1),1);//开运算
+	cv::threshold(invertImage, binaryMat, 0, 255, THRESH_OTSU);
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(11, 11));
+	morphologyEx(binaryMat, dstImage_Open, MORPH_OPEN, kernel, Point(-1, -1), 1);//开运算
 
 	int nComp = cv::connectedComponentsWithStats(dstImage_Open,
 		labelMat,
@@ -74,12 +72,12 @@ int main()
 		cout << "height = " << statsMat.at<int>(i, 3) << endl;
 		cout << endl;
 	}
-	
+
 	cout << "the total of connected Components = " << nComp - 1 << endl;//-1,nComp包括背景
 	resultMat = cv::Mat::zeros(srcMat.size(), CV_8UC3);	//显示用图像
 	std::vector<cv::Vec3b> colors(nComp);
 	colors[0] = cv::Vec3b(0, 0, 0);//背景黑色
-	
+
 	//绘制bounding box
 	for (int i = 1; i < nComp; i++)
 	{
@@ -92,7 +90,7 @@ int main()
 		bndbox.height = statsMat.at<int>(i, 3);
 		//绘制
 		rectangle(resultMat, bndbox, CV_RGB(255, 255, 255), 1, 8, 0);
-		}
+	}
 
 
 	imshow("binaryMat", binaryMat);
@@ -102,6 +100,6 @@ int main()
 	moveWindow("binaryMat", srcMat.cols, 20);
 	moveWindow("results", srcMat.cols * 2, 20);
 	waitKey(0);
-	
+
 	return 0;
 }
